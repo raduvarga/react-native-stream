@@ -212,7 +212,7 @@ function validChunk(stream, state, chunk, cb) {
   // if it is not a buffer, string, or undefined.
   if (chunk === null) {
     er = new TypeError('May not write null values to stream');
-  } else if (!(chunk instanceof Buffer) &&
+  } else if (!(Buffer.isBuffer(chunk)) &&
       typeof chunk !== 'string' &&
       chunk !== undefined &&
       !state.objectMode) {
@@ -235,7 +235,7 @@ Writable.prototype.write = function(chunk, encoding, cb) {
     encoding = null;
   }
 
-  if (chunk instanceof Buffer)
+  if (Buffer.isBuffer(chunk))
     encoding = 'buffer';
   else if (!encoding)
     encoding = state.defaultEncoding;
@@ -299,7 +299,7 @@ function decodeChunk(state, chunk, encoding) {
 function writeOrBuffer(stream, state, chunk, encoding, cb) {
   chunk = decodeChunk(state, chunk, encoding);
 
-  if (chunk instanceof Buffer)
+  if (Buffer.isBuffer(chunk))
     encoding = 'buffer';
   var len = state.objectMode ? 1 : chunk.length;
 
