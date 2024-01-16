@@ -382,7 +382,7 @@ Readable.prototype.read = function(n) {
 
 function chunkInvalid(state, chunk) {
   var er = null;
-  if (!(chunk instanceof Buffer) &&
+  if (!(Buffer.isBuffer(chunk)) &&
       typeof chunk !== 'string' &&
       chunk !== null &&
       chunk !== undefined &&
