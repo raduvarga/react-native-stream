@@ -382,10 +382,10 @@ Readable.prototype.read = function(n) {
 
 function chunkInvalid(state, chunk) {
   var er = null;
-  if (!(Buffer.isBuffer(chunk)) &&
-      typeof chunk !== 'string' &&
-      chunk !== null &&
+  if (chunk !== null &&
       chunk !== undefined &&
+      typeof chunk !== 'string' &&
+      !(Buffer.isBuffer(chunk)) &&
       !state.objectMode) {
     er = new TypeError('Invalid non-string/buffer chunk');
   }
