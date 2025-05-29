@@ -212,9 +212,9 @@ function validChunk(stream, state, chunk, cb) {
   // if it is not a buffer, string, or undefined.
   if (chunk === null) {
     er = new TypeError('May not write null values to stream');
-  } else if (!(Buffer.isBuffer(chunk)) &&
+  } else if (chunk !== undefined &&
       typeof chunk !== 'string' &&
-      chunk !== undefined &&
+      !(Buffer.isBuffer(chunk)) &&
       !state.objectMode) {
     er = new TypeError('Invalid non-string/buffer chunk');
   }
@@ -299,7 +299,7 @@ function decodeChunk(state, chunk, encoding) {
 function writeOrBuffer(stream, state, chunk, encoding, cb) {
   chunk = decodeChunk(state, chunk, encoding);
 
-  if (Buffer.isBuffer(chunk))
+  if (chunk !== null && chunk !== undefined && Buffer.isBuffer(chunk))
     encoding = 'buffer';
   var len = state.objectMode ? 1 : chunk.length;
 
